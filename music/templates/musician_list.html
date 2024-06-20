@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1>Musicians Directory</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Musician Name</th>
+            <th>Email</th>
+            <th>Album Rating</th>
+            <th>Instrument Type</th>
+            <th>Album Name</th>
+            <th>Release Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for album in albums %}
+        <tr>
+            <td>{{ album.id }}</td>
+            <td><a href="{% url 'musician_edit' album.musician.id %}">{{ album.musician }}</a></td>
+            <td>{{ album.musician.email }}</td>
+            <td>{{ album.rating }}</td>
+            <td>{{ album.musician.instrument_type }}</td>
+            <td>{{ album.album_name }}</td>
+            <td>{{ album.release_date|date:"d-M-Y" }}</td>
+            <td>
+                <a href="{% url 'album_edit' album.id %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'album_delete' album.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
